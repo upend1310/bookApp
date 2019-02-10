@@ -1,0 +1,13 @@
+.form-width {
+    max-width: 300px;
+    margin: auto;
+}
+
+.mar-top-20 {
+    margin-top: 20px;
+}
+
+.badge {
+    text-align: center;
+    margin-top: 10px;
+}
