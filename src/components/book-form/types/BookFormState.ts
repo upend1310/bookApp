@@ -1,5 +1,6 @@
 export interface BookFormState {
     currentBook: string,
     nextBookId: number,
-    error: boolean
+    error: boolean,
+    isBookAdded: boolean
 }

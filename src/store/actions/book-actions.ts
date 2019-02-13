@@ -22,11 +22,11 @@ export function deleteBook(id: number) {
     }
 }
 
-export function editBook(id: number) {
+export function editBook(newBook: Book) {
     return {
         type: EDIT_BOOK,
         payload: {
-            id
+            book: newBook
         }
     }
 }

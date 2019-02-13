@@ -1,4 +1,3 @@
 export interface IBookEditButtonProps {
-    id: number;
-    onEditBook: any
+    id: number
 }

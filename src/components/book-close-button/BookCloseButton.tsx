@@ -16,7 +16,10 @@ class BookCloseButton extends React.Component<IBookCloseButtonProps, {}> {
 
     public render() {
         return (
-            <span className="far fa-window-close" onClick={this.handleClick} />
+            <div className="button-1" onClick={this.handleClick}>
+                <div className="eff-1" />
+                <a href="javascript:void(0)">Delete</a>
+            </div>
         )
     };
 

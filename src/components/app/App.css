@@ -1,6 +1,16 @@
 .card-container {
     margin: auto;
     padding: 20px;
+    /* For Safari 3.1 to 6.0 */
+    -webkit-transition-property: height;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function: linear;
+    -webkit-transition-delay: 3s;
+    /* Standard syntax */
+    transition-property: height;
+    transition-duration: 3s;
+    transition-timing-function: linear;
+    transition-delay: 3s;
 }
 
 .card {
@@ -18,7 +28,7 @@
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
     padding: 1.25rem;
-    box-shadow: 10px 10px 5px #aaaaaa;
+    box-shadow: 10px 10px 5px black;
     text-align: center;
     margin: auto;
 }
@@ -31,4 +41,11 @@
 
 .btn {
     line-height: 1;
+}
+
+.header {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 60px;
+    color: aliceblue;
 }
