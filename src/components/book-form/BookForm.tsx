@@ -1,32 +1,30 @@
 import * as React from 'react';
 import './BookForm.css';
 import { BookFormState } from "./types/BookFormState";
-import { addBook } from "../../store/actions/book-actions";
+import { addNewBook } from "../../store/actions/book-actions";
 import { connect } from "react-redux";
 import { BookFormProps } from "./types/BookFormProps";
 import { Alert, Button } from "react-bootstrap";
+import { Book } from 'src/model/Book';
 
-let state: BookFormState = {
-    currentBook: "",
-    nextBookId: 0,
-    error: false,
-    isBookAdded: false
-};
-
-class BookForm extends React.Component<BookFormProps, BookFormState> {
+export class BookForm extends React.Component<BookFormProps, BookFormState> {
 
     constructor(props: BookFormProps, context: any) {
         super(props, context);
 
         this.onMsgClose = this.onMsgClose.bind(this);
-        this.state = state;
+        this.state = {
+            currentBook: "",
+            error: false,
+            isBookAdded: false
+        };
     }
 
     public render() {
         return (
             <div>
                 { this.state.isBookAdded &&
-                    <Alert bsStyle="success" onDismiss={this.onMsgClose}>
+                    <Alert id="successMsg" bsStyle="success" onDismiss={this.onMsgClose}>
                         Book successfully added.
                     </Alert>
                 }
@@ -43,17 +41,13 @@ class BookForm extends React.Component<BookFormProps, BookFormState> {
         )
     }
 
-    public componentWillUnmount() {
-        state = this.state;
-    }
-
-    private onAddBook() {
+    private onAddNewBook() {
         if (this.state.currentBook !== '') {
-            this.updateStateOnSubmit();
-            this.props.onAddBook({
-                id: this.state.nextBookId,
+            const data = {
                 description: this.state.currentBook
-            });
+            }
+            this.props.onAddBook(data);
+            this.updateStateOnSubmit();
         } else {
             this.setState({
                 error: true
@@ -64,15 +58,14 @@ class BookForm extends React.Component<BookFormProps, BookFormState> {
     private updateStateOnSubmit() {
         this.setState({
             currentBook: "",
-            nextBookId: this.state.nextBookId + 1,
             error: false,
             isBookAdded: true
         })
-    }
+    } 
 
     private handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        this.onAddBook();
+        this.onAddNewBook();
     }
 
     private onMsgClose() {
@@ -89,8 +82,10 @@ class BookForm extends React.Component<BookFormProps, BookFormState> {
     }
 }
 
-const mapActionsToProps = {
-    onAddBook: addBook
-};
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onAddBook: (data: Book) => addNewBook(dispatch, data)
+    }
+}
 
-export default connect(undefined, mapActionsToProps)(BookForm);
+export default connect(undefined, mapDispatchToProps)(BookForm);

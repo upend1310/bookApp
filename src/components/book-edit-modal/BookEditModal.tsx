@@ -2,7 +2,7 @@ import * as React from 'react';
 import {IBookEditModalProps} from "./types/IBookEditModalProps";
 import {IBookEditModalState} from "./types/IBookEditModalState";
 import {connect} from "react-redux";
-import {editBook} from "../../store/actions/book-actions";
+import {editBookAction} from "../../store/actions/book-actions";
 import {Modal, Button} from "react-bootstrap";
 import "./BookEditModal.css";
 
@@ -19,7 +19,7 @@ class BookEditModal extends React.Component<IBookEditModalProps, IBookEditModalS
     }
 
     public handleSave = () => {
-        this.onEditBook();
+        this.onEditOfBook();
         this.props.onCloseModal();
     }
 
@@ -37,7 +37,7 @@ class BookEditModal extends React.Component<IBookEditModalProps, IBookEditModalS
         return (
             <Modal show={this.props.show} onHide={this.props.onCloseModal} id={"modal_"+this.props.id} backdrop={true}>
                 <Modal.Body>
-                    <p>Please enter book name:</p>
+                    <p className="mar-top-20">Please enter book name:</p>
                     <input type="text" className="form-control" defaultValue={this.state.bookName} ref={this.newBookName} />
                 </Modal.Body>
                 <Modal.Footer>
@@ -48,20 +48,23 @@ class BookEditModal extends React.Component<IBookEditModalProps, IBookEditModalS
         )
     };
 
-    public onEditBook = () => {
-        this.props.onEditBook({
+    public onEditOfBook = () => {
+        const data = {
             id: this.props.id, 
             description: this.newBookName.current ? this.newBookName.current.value : ""
-        });
+        };
+        this.props.onEditBook(data);
     }
 }
 
-const mapActionsToProps = {
-    onEditBook: editBook
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onEditBook: (data: any) => editBookAction(dispatch, data)
+    }
 };
 
 const mapStateToProps = (state: IBookEditModalProps) => ({
     books: state.books
 })
 
-export default connect(mapStateToProps, mapActionsToProps)(BookEditModal);
+export default connect(mapStateToProps, mapDispatchToProps)(BookEditModal);

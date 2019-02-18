@@ -1,24 +1,16 @@
 import {Book} from "../../model/Book";
-import {ADD_BOOK, DELETE_BOOK, EDIT_BOOK} from "../actions/book-actions";
+import {ADD_BOOK, VIEW_BOOKS} from "../actions/book-actions";
 
-const booksReducer = (state: Book[] = [], action: any) => {
-    let newState: Book[] = [];
+const INITIAL_STATE: Book[] = [];
+
+const booksReducer = (state = INITIAL_STATE, action: any) => {
+    let newState: Book[];
     switch (action.type) {
+        case VIEW_BOOKS: 
+            newState = action.payload.books
+            return newState;
         case ADD_BOOK:
-            newState = [
-                ...state,
-                action.payload.book
-            ];
-            console.log(newState);
-            return newState;
-        case EDIT_BOOK:
-            newState = [
-                ...state.filter(book => book.id !== action.payload.book.id),
-                action.payload.book
-            ];
-            return newState;
-        case DELETE_BOOK:
-            return state.filter(book => book.id !== action.payload.id);
+            return state;
         default:
             return state;
     }

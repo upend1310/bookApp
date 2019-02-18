@@ -24,12 +24,14 @@ class BookCloseButton extends React.Component<IBookCloseButtonProps, {}> {
     };
 
     public onRemoveBook = () => {
-        this.props.onRemoveBook(this.props.id);
+        this.props.onDeleteBook(this.props.id);
     }
 }
 
-const mapActionsToProps = {
-    onRemoveBook: deleteBook
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onDeleteBook: (id: any) => deleteBook(dispatch, id)
+    }
 };
 
-export default connect(undefined, mapActionsToProps)(BookCloseButton);
+export default connect(undefined, mapDispatchToProps)(BookCloseButton);

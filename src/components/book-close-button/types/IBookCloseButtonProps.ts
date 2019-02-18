@@ -1,4 +1,4 @@
 export interface IBookCloseButtonProps {
-    id: number;
-    onRemoveBook: any
+    id: number,
+    onDeleteBook: any
 }
